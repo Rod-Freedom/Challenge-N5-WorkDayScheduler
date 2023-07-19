@@ -46,10 +46,15 @@ textarea {
 }
 
 .saveBtn {
-  border-left: 1px solid black;
-  border-top-right-radius: 15px;
+  border-radius: 0 15px 15px 0;
   border-bottom-right-radius: 15px;
   background-color: #06aed5;
+  color: white;
+}
+
+.checkBtn {
+  border-left: 1px solid black;
+  background-color: #06d59a;
   color: white;
 }
 
@@ -57,3 +62,16 @@ textarea {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
 }
+
+.checkBtn i:hover {
+  font-size: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.checkedTask {
+  text-decoration: line-through;
+}
+
+.checkedBtn {
+  color: #7b7b7b;
+} 
