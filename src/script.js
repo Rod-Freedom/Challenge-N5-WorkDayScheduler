@@ -1,11 +1,10 @@
 const todayP = $('#today'); // This const is linked to the paragraph that displays today's date in the site's header.
 const hoursContainer = $('#hoursCont'); // This const is linked with the container that holds all the rows by hour of the day.
-let today = dayjs();
 
 // This array holds all the values for each hour by task and checks in rows to store it in the local environment.
 // The first value corresponds to the date of the last tasks saved.
 let tasksList = [
-  today.format('YYYY-MM-DD'), {
+  dayjs().format('YYYY-MM-DD'), {
     hour: 9,
     task: "",
     checked: false
@@ -53,7 +52,7 @@ const getData = () => {
 // The following lines set today's date and assign a suffix for the day number.
 const todaysDate = () => {
   let suffix = '';
-  let todaysDay = today.format('D');
+  let todaysDay = dayjs().format('D');
   
   if (todaysDay == 1) {
     suffix = 'st'
@@ -64,15 +63,15 @@ const todaysDate = () => {
   } else {
     suffix = 'th'
   }
-  
+
   // Now the value displays in the html element.
-  todayP.html(today.format(`dddd, MMMM D[${suffix}]`))
+  todayP.html(dayjs().format(`dddd, MMMM D[${suffix}]`))
 };
 
 // This function calls for the storeData and getData funcs, depending on the situation:
 // If the local storage is empty or the date differs from the actual date, it will reset the data. 
 const getTasks = () => {
-  if (localStorage.getItem("tasksList") === null || JSON.parse(localStorage.getItem("tasksList"))[0] != today.format('YYYY-MM-DD')) {
+  if (localStorage.getItem("tasksList") === null || JSON.parse(localStorage.getItem("tasksList"))[0] != dayjs().format('YYYY-MM-DD')) {
     storeData(); 
   } else { 
     getData(); 
@@ -84,12 +83,12 @@ const colorHoursFunc = () => {
   for (i = 9; i < 18; i++) {
     let hourRowEl = $(`#hour-${i}`);
 
-    if (hourRowEl.data('hour') < today.format('H')) {
+    if (hourRowEl.data('hour') < dayjs().format('H')) {
       hourRowEl.addClass('past');
       hourRowEl.removeClass('present');
       hourRowEl.removeClass('future');
 
-    } else if (hourRowEl.data('hour') == today.format('H')) {
+    } else if (hourRowEl.data('hour') == dayjs().format('H')) {
       hourRowEl.addClass('present');
       hourRowEl.removeClass('past');
       hourRowEl.removeClass('future');
@@ -100,9 +99,7 @@ const colorHoursFunc = () => {
       hourRowEl.removeClass('present');
 
     };
-  }
-
-  console.log("Hi Rod")
+  };
 };
 
 // The following function calls for the colorHoursFunc every minute.
@@ -213,9 +210,15 @@ let renderHrs = () => {
 }
 
 // One last bit will call all the necessary funcs when the site is ready.
+// The date is updated every hour.
 $(document).ready(function() {
   getTasks();
   todaysDate();
   renderHrs();
   colorHours();
+
+  setInterval(() => {
+    todaysDate();
+
+  }, 3600000)
 });
