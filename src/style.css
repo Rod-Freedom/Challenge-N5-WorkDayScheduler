@@ -70,8 +70,41 @@ textarea {
 
 .checkedTask {
   text-decoration: line-through;
+  text-decoration-thickness: 3aapx;
+  text-decoration-color: red;
 }
 
 .checkedBtn {
   color: #7b7b7b;
-} 
+}
+
+.bannerText {
+  color: rgb(214, 214, 214);
+  font-family: sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.bannerImg {
+  height: 2rem;
+}
+
+a.bannerText:hover {
+  color: white;
+}
+
+@media (max-width: 500px) {
+
+  .bannerText{
+    font-size: .8rem;
+  }
+  
+  .bannerImg {
+    height: 1.5rem;
+  }
+
+  .hour {
+    font-size: .8rem !important;
+  }
+}
